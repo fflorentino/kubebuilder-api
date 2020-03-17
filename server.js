@@ -1,10 +1,21 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const requireDir = require('require-dir');
 
+
+// iniciando app
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+// iniciando database
+mongoose.connect(
+    "mongodb://localhost:27017/kubebuilder-api",
+    { useNewUrlParser: true }
+);
+//load all models
+requireDir('./src/models');
+
+// rotas
+app.use('/api', require("./src/routes"));
 
 app.listen('3001');
 console.log('Listen on port 3001');
