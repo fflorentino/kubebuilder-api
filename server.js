@@ -5,6 +5,8 @@ const requireDir = require('require-dir');
 
 // iniciando app
 const app = express();
+// envia dados para aplicação no formato de json
+app.use(express.json());
 
 // iniciando database
 mongoose.connect(
