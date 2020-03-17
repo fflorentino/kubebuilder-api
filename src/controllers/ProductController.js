@@ -9,9 +9,27 @@ module.exports = {
     return res.json(products);
   },
 
-  async create(req, res){
-      const product = await Product.create(req.body);
+  async show(req, res){
+    const product = await Product.findById(req.params.id);
 
-      return res.json(product);
+    return res.json(product);
   },
+
+  async create(req, res){
+    const product = await Product.create(req.body);
+
+    return res.json(product);
+  },
+
+  async update(req, res) {
+    const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+
+    return res.json(product);
+  },
+
+  async delete(req, res) {
+    await Product.findByIdAndRemove(req.params.id);
+
+    res.send();
+  }
 };
